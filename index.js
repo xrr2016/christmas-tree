@@ -1,7 +1,7 @@
 /*
  * @Author: Cold Stone
  * @Date: 2020-12-21 20:30:50
- * @LastEditTime: 2020-12-23 20:25:15
+ * @LastEditTime: 2020-12-23 21:05:15
  * @LastEditors: Please set LastEditors
  * @Description: Christmas Tree
  * @FilePath: /christmas-tree/index.js
@@ -19,31 +19,41 @@ function initCanvas(id) {
 
 function main() {
   const canvas = initCanvas('tree')
+  // 树的起始位置
   const location = [CANVAS_WIDTH * 0.5, CANVAS_HEIGHT]
 
   drawBranches(canvas, location, 100, 0, 20)
-  drawLeaves(canvas)
-  drawGifts(canvas)
-  drawStar(canvas)
+  // drawLeaves(canvas)
+  // drawGifts(canvas)
+  // drawStar(canvas)
 }
 
-function drawBranches(canvas, start, len, angle, branchWidth) {
+/*
+ * canvas      画布
+ * start       线条起始位置
+ * length      线条长度
+ * angle       线条旋转角度
+ * branchWidth 线条宽度
+ */
+
+function drawBranches(canvas, start, length, angle, branchWidth) {
   const ctx = canvas.getContext('2d')
-  ctx.beginPath()
   ctx.save()
+  ctx.beginPath()
+  // 将画布原点移动到
   ctx.translate(...start)
   ctx.strokeStyle = '#333'
   ctx.lineWidth = branchWidth
   ctx.rotate((angle * Math.PI) / 180)
 
   ctx.moveTo(0, 0)
-  ctx.lineTo(0, -len)
+  ctx.lineTo(0, -length)
   ctx.stroke()
 
-  if (len > 5) {
-    drawBranches(canvas, [0, -len], len * 0.5, 35, branchWidth * 0.7)
-    drawBranches(canvas, [0, -len], len * 0.5, -35, branchWidth * 0.7)
-    drawBranches(canvas, [0, -len], len * 0.8, 0, branchWidth * 0.7)
+  if (length > 5) {
+    drawBranches(canvas, [0, -length], length * 0.5, 35, branchWidth * 0.7)
+    drawBranches(canvas, [0, -length], length * 0.5, -35, branchWidth * 0.7)
+    drawBranches(canvas, [0, -length], length * 0.8, 0, branchWidth * 0.7)
   }
 
   ctx.restore()
